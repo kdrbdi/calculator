@@ -4,8 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles.css" />
-    <script src="./script.js"></script>
+    <script src="./script.js" defer></script>
     <title>Calculator</title>
   </head>
-  <body></body>
+  <body>
+    <p id="displayOperation"></p>
+    <p id="displayTotal"></p>
+    <button data-type="clear">Clear</button>
+    <button data-type="delete">Delete</button>
+    <button data-value="1" data-type="digit">1</button>
+    <button data-value="2" data-type="digit">2</button>
+    <button data-value="3" data-type="digit">3</button>
+    <button data-value="4" data-type="digit">4</button>
+    <button data-value="5" data-type="digit">5</button>
+    <button data-value="6" data-type="digit">6</button>
+    <button data-value="7" data-type="digit">7</button>
+    <button data-value="8" data-type="digit">8</button>
+    <button data-value="9" data-type="digit">9</button>
+    <button data-value="." data-type="float">.</button>
+    <button data-value="+" data-type="operator">+</button>
+    <button data-value="-" data-type="operator">-</button>
+    <button data-value="*" data-type="operator">*</button>
+    <button data-value="/" data-type="operator">/</button>
+    <button id="equals" data-value="=" data-type="equals">=</button>
+  </body>
 </html>
