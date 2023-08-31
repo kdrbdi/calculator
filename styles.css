@@ -1,0 +1,13 @@
+p {
+  font-size: 1.5rem;
+}
+#display-operation {
+  height: 50px;
+  background-color: black;
+  color: white;
+}
+#display-current {
+  height: 50px;
+  background-color: green;
+  color: white;
+}

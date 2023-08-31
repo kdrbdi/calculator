@@ -1,15 +1,25 @@
+// ================
 // Selectors
-const displayOperation = document.querySelector("#displayOperation");
-const displayTotal = document.querySelector("#displayTotal");
-const btns = document.querySelectorAll("button");
-const equals = document.querySelector("#equals");
+// ================
+
+const displayOperation = document.querySelector("#display-operation");
+const displayCurrent = document.querySelector("#display-current");
+const digits = document.querySelectorAll('[data-type="digit"]');
+const operators = document.querySelectorAll('[data-type="operator"]');
+const btnClear = document.querySelector("#btn-clear");
+const btnDelete = document.querySelector("#btn-delete");
+const btnEquals = document.querySelector("#btn-equals");
 
 // Variables
 let firstOperand;
 let secondOperand;
 let operator;
 
+// ====================
 // Functions
+// ====================
+
+// Arithmetic Functions
 function add(x, y) {
   return x + y;
 }
@@ -27,54 +37,85 @@ function divide(x, y) {
 }
 
 function operate(firstOperand, secondOperand, operator) {
+  let result = 0;
   switch (operator) {
+    case "*": {
+      result = multiply(firstOperand, secondOperand);
+      break;
+    }
     case "+": {
-      return add(firstOperand, secondOperand);
+      result = add(firstOperand, secondOperand);
+      break;
     }
     case "-": {
-      return substract(firstOperand, secondOperand);
-    }
-    case "*": {
-      return multiply(firstOperand, secondOperand);
+      result = substract(firstOperand, secondOperand);
+      break;
     }
     case "/": {
-      return divide(firstOperand, secondOperand);
+      result = divide(firstOperand, secondOperand);
+      break;
     }
     default: {
       break;
     }
   }
+  return result;
 }
+
+// ====================
+// Helper functions
+// ====================
 
 function parseOperation(str) {
   return str.replace(/[^0-9*\/*+-.]/g, "");
 }
 
+// ===================
 // Event Listeners
-btns.forEach((button) =>
-  button.addEventListener("click", function (e) {
-    if (e.target.dataset.type === "digit") {
-      displayOperation.textContent += `${e.target.dataset.value}`;
-    } else if (e.target.dataset.type === "operator") {
-      displayOperation.textContent += ` ${e.target.dataset.value} `;
-    }
-  })
-);
+// ===================
 
-equals.addEventListener("click", function (e) {
-  const operation = parseOperation(displayOperation.textContent);
-  //  find the operator
-  // set the previous content that's not an argument as the first operand
-  // set the next content that's not an argument as the second operand
-  for (let index = 0; index < operation.length; index++) {
-    if (operation[index] !== ("+" || "-" || "*" || "/")) {
-      console.log(index, operation[index]);
-      continue;
-    } else {
-      firstOperand = +operation.substring(0, index);
-      secondOperand = +operation.substring(index);
-      operator = operation[index];
-      displayTotal.textContent = operate(firstOperand, secondOperand, operator);
-    }
-  }
+// Clear display and data
+
+btnClear.addEventListener("click", function (e) {
+  firstOperand = secondOperand = operator = "";
+  displayOperation.textContent = "";
+  displayCurrent.textContent = "";
+});
+
+// Listen for all button clicks
+// btns.forEach((button) =>
+//   button.addEventListener("click", function (e) {
+//     if (e.target.dataset.type === "digit") {
+//       displayOperation.textContent += `${e.target.dataset.value}`;
+//     } else if (e.target.dataset.type === "operator") {
+//       displayOperation.textContent += ` ${e.target.dataset.value} `;
+//     }
+//   })
+// );
+
+// Listen for digits
+digits.forEach((digit) => {
+  digit.addEventListener("click", function (e) {
+    displayCurrent.textContent += `${e.target.dataset.value}`;
+  });
+});
+
+// Listen for operators
+operators.forEach((operatorSymbol) => {
+  operatorSymbol.addEventListener("click", function (e) {
+    // When an operator is clicked, save the value displayed as first operand
+    firstOperand = +displayCurrent.textContent;
+    // set the operand
+    operator = e.target.dataset.value;
+    // Update display
+    displayOperation.textContent = `${displayCurrent.textContent} ${e.target.dataset.value} `;
+    displayCurrent.textContent = "";
+  });
+});
+
+btnEquals.addEventListener("click", function (e) {
+  secondOperand = +displayCurrent.textContent;
+  displayOperation.textContent += `${secondOperand} =`;
+  console.table(firstOperand, secondOperand, operator);
+  displayCurrent.textContent = operate(firstOperand, secondOperand, operator);
 });
