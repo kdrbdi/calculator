@@ -70,6 +70,13 @@ function parseOperation(str) {
   return str.replace(/[^0-9*\/*+-.]/g, "");
 }
 
+function resolveOperation() {
+  secondOperand = +displayCurrent.textContent;
+  displayOperation.textContent += `${secondOperand} =`;
+  console.table(firstOperand, operator, secondOperand);
+  displayCurrent.textContent = operate(firstOperand, secondOperand, operator);
+}
+
 // ===================
 // Event Listeners
 // ===================
@@ -103,7 +110,17 @@ digits.forEach((digit) => {
 // Listen for operators
 operators.forEach((operatorSymbol) => {
   operatorSymbol.addEventListener("click", function (e) {
-    // When an operator is clicked, save the value displayed as first operand
+    // If there's an ongoing operation
+    // Set the result of that operation as the first operand
+    // and the current value as the second operand
+    if (displayOperation.textContent !== "") {
+      firstOperand = resolveOperation();
+    } else {
+      firstOperand = +displayCurrent.textContent;
+    }
+
+    // When an operator is clicked and there's no ongoing operation
+    // save the value displayed as first operand
     firstOperand = +displayCurrent.textContent;
     // set the operand
     operator = e.target.dataset.value;
@@ -114,8 +131,5 @@ operators.forEach((operatorSymbol) => {
 });
 
 btnEquals.addEventListener("click", function (e) {
-  secondOperand = +displayCurrent.textContent;
-  displayOperation.textContent += `${secondOperand} =`;
-  console.table(firstOperand, secondOperand, operator);
-  displayCurrent.textContent = operate(firstOperand, secondOperand, operator);
+  resolveOperation();
 });
