@@ -8,25 +8,37 @@
     <title>Calculator</title>
   </head>
   <body>
-    <p id="display-operation"></p>
-    <p id="display-current"></p>
-    <button id="btn-clear" data-type="clear">Clear</button>
-    <button id="btn-delete" data-type="delete">Delete</button>
-    <button data-value="0" data-type="digit">0</button>
-    <button data-value="1" data-type="digit">1</button>
-    <button data-value="2" data-type="digit">2</button>
-    <button data-value="3" data-type="digit">3</button>
-    <button data-value="4" data-type="digit">4</button>
-    <button data-value="5" data-type="digit">5</button>
-    <button data-value="6" data-type="digit">6</button>
-    <button data-value="7" data-type="digit">7</button>
-    <button data-value="8" data-type="digit">8</button>
-    <button data-value="9" data-type="digit">9</button>
-    <button data-value="." data-type="float">.</button>
-    <button data-value="+" data-type="operator">+</button>
-    <button data-value="-" data-type="operator">-</button>
-    <button data-value="*" data-type="operator">*</button>
-    <button data-value="/" data-type="operator">/</button>
-    <button id="btn-equals" data-value="=" data-type="equals">=</button>
+    <div class="container">
+      <div class="display">
+        <p id="display-operation"></p>
+        <p id="display-current"></p>
+      </div>
+      <div class="keypad">
+        <button id="btn-clear" data-type="clear">AC</button>
+        <button id="btn-percent" data-type="percentage">%</button>
+        <button id="btn-delete" data-type="delete">Del</button>
+        <button data-value="/" data-type="operator">/</button>
+        <div class="break"></div>
+        <button data-value="7" data-type="digit">7</button>
+        <button data-value="8" data-type="digit">8</button>
+        <button data-value="9" data-type="digit">9</button>
+        <button data-value="*" data-type="operator">*</button>
+        <div class="break"></div>
+        <button data-value="4" data-type="digit">4</button>
+        <button data-value="5" data-type="digit">5</button>
+        <button data-value="6" data-type="digit">6</button>
+        <button data-value="-" data-type="operator">-</button>
+        <div class="break"></div>
+        <button data-value="1" data-type="digit">1</button>
+        <button data-value="2" data-type="digit">2</button>
+        <button data-value="3" data-type="digit">3</button>
+        <button data-value="+" data-type="operator">+</button>
+        <div class="break"></div>
+        <button></button>
+        <button data-value="0" data-type="digit">0</button>
+        <button data-value="." data-type="float">.</button>
+        <button id="btn-equals" data-value="=" data-type="equals">=</button>
+      </div>
+    </div>
   </body>
 </html>

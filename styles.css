@@ -1,13 +1,88 @@
-p {
-  font-size: 1.5rem;
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
+* {
+  margin: 0;
+}
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+#root,
+#__next {
+  isolation: isolate;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Roboto, sans-serif;
+  background-color: #f4f5f6;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+}
+
+#display-operation,
+#display-current {
+  padding: 1rem;
+  text-align: right;
+}
+
 #display-operation {
   height: 50px;
-  background-color: black;
-  color: white;
+  font-size: 1.25rem;
 }
 #display-current {
   height: 50px;
-  background-color: green;
-  color: white;
+}
+
+.keypad {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.break {
+  flex-basis: 100%;
+  height: 0;
+}
+
+button {
+  width: 50px;
+  aspect-ratio: 1 / 1;
+  margin: 0.35rem;
 }
