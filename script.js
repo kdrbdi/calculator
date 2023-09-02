@@ -4,6 +4,7 @@
 
 const displayOperation = document.querySelector("#display-operation");
 const displayCurrent = document.querySelector("#display-current");
+const btns = document.querySelectorAll("[data-type]");
 const digits = document.querySelectorAll('[data-type="digit"]');
 const operators = document.querySelectorAll('[data-type="operator"]');
 const btnClear = document.querySelector("#btn-clear");
@@ -36,7 +37,7 @@ function divide(x, y) {
   return Math.round((x / y) * 1000) / 1000;
 }
 
-function operate(firstOperand, secondOperand, operator) {
+function operate(firstOperand, operator, secondOperand) {
   let result = 0;
   switch (operator) {
     case "*": {
@@ -74,7 +75,16 @@ function resolveOperation() {
   secondOperand = +displayCurrent.textContent;
   displayOperation.textContent += `${secondOperand} =`;
   console.table(firstOperand, operator, secondOperand);
-  displayCurrent.textContent = operate(firstOperand, secondOperand, operator);
+  displayCurrent.textContent = operate(firstOperand, operator, secondOperand);
+}
+
+function clearData() {
+  firstOperand = secondOperand = operator = "";
+}
+
+function clearDisplay() {
+  displayOperation.textContent = "";
+  displayCurrent.textContent = "";
 }
 
 // ===================
@@ -84,23 +94,21 @@ function resolveOperation() {
 // Clear display and data
 
 btnClear.addEventListener("click", function (e) {
-  firstOperand = secondOperand = operator = "";
-  displayOperation.textContent = "";
-  displayCurrent.textContent = "";
+  clearDisplay();
+  clearData();
 });
 
-// Listen for all button clicks
-// btns.forEach((button) =>
-//   button.addEventListener("click", function (e) {
-//     if (e.target.dataset.type === "digit") {
-//       displayOperation.textContent += `${e.target.dataset.value}`;
-//     } else if (e.target.dataset.type === "operator") {
-//       displayOperation.textContent += ` ${e.target.dataset.value} `;
-//     }
-//   })
-// );
-
 // Listen for digits
+
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") btnEquals.click();
+  btns.forEach((button) => {
+    if (e.key === button.dataset.value) {
+      button.click();
+    }
+  });
+});
+
 digits.forEach((digit) => {
   digit.addEventListener("click", function (e) {
     displayCurrent.textContent += `${e.target.dataset.value}`;
@@ -114,6 +122,13 @@ operators.forEach((operatorSymbol) => {
     // Set the result of that operation as the first operand
     // and the current value as the second operand
     if (displayOperation.textContent !== "") {
+      console.log(
+        `Ongoing operation ${console.table(
+          firstOperand,
+          secondOperand,
+          operator
+        )}`
+      );
       firstOperand = resolveOperation();
     } else {
       firstOperand = +displayCurrent.textContent;
@@ -132,4 +147,5 @@ operators.forEach((operatorSymbol) => {
 
 btnEquals.addEventListener("click", function (e) {
   resolveOperation();
+  clearData();
 });
