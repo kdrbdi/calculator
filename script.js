@@ -106,6 +106,7 @@ btnClear.addEventListener("click", function (e) {
 // Listen for keyboard events
 
 document.addEventListener("keydown", function (e) {
+  e.preventDefault();
   if (e.key === "Enter") btnEquals.click();
   if (e.key === "Backspace") btnDelete.click();
   if (e.key === ".") btnFloat.click();
