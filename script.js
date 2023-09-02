@@ -169,7 +169,12 @@ operators.forEach((operatorSymbol) => {
 });
 
 btnEquals.addEventListener("click", function (e) {
-  if (firstOperand === "undefined" || secondOperand === "undefined");
+  if (
+    displayOperation.textContent.charAt(
+      displayOperation.textContent.length - 1
+    ) === "="
+  )
+    return;
   resolveOperation();
   clearData();
 });
