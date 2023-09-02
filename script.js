@@ -6,6 +6,7 @@ const displayOperation = document.querySelector("#display-operation");
 const displayCurrent = document.querySelector("#display-current");
 const btns = document.querySelectorAll("[data-type]");
 const digits = document.querySelectorAll('[data-type="digit"]');
+const btnFloat = document.querySelector('[data-type="float"]');
 const operators = document.querySelectorAll('[data-type="operator"]');
 const btnClear = document.querySelector("#btn-clear");
 const btnDelete = document.querySelector("#btn-delete");
@@ -53,6 +54,7 @@ function operate(firstOperand, operator, secondOperand) {
       break;
     }
     case "/": {
+      if (!secondOperand) return "Err";
       result = divide(firstOperand, secondOperand);
       break;
     }
@@ -60,7 +62,10 @@ function operate(firstOperand, operator, secondOperand) {
       break;
     }
   }
-  return result;
+  if (Number.isInteger(result)) return result;
+  else {
+    return result.toFixed(3);
+  }
 }
 
 // ====================
@@ -98,16 +103,34 @@ btnClear.addEventListener("click", function (e) {
   clearData();
 });
 
-// Listen for digits
+// Listen for keyboard events
 
 document.addEventListener("keydown", function (e) {
   if (e.key === "Enter") btnEquals.click();
+  if (e.key === "Backspace") btnDelete.click();
+  if (e.key === ".") btnFloat.click();
   btns.forEach((button) => {
     if (e.key === button.dataset.value) {
       button.click();
     }
   });
 });
+
+btnDelete.addEventListener("click", function (e) {
+  displayCurrent.textContent = displayCurrent.textContent.substring(
+    0,
+    displayCurrent.textContent.length - 1
+  );
+});
+
+btnFloat.addEventListener("click", function (e) {
+  if (displayCurrent.textContent.includes(".")) return;
+  else {
+    displayCurrent.textContent += ".";
+  }
+});
+
+// Listen for digit clicks
 
 digits.forEach((digit) => {
   digit.addEventListener("click", function (e) {
@@ -146,6 +169,7 @@ operators.forEach((operatorSymbol) => {
 });
 
 btnEquals.addEventListener("click", function (e) {
+  if (firstOperand === "undefined" || secondOperand === "undefined");
   resolveOperation();
   clearData();
 });
