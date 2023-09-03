@@ -12,6 +12,7 @@ const btnClear = document.querySelector("#btn-clear");
 const btnDelete = document.querySelector("#btn-delete");
 const btnEquals = document.querySelector("#btn-equals");
 const btnSign = document.querySelector("#btn-sign");
+const illustrations = document.querySelectorAll(".illustration");
 
 // Variables
 let firstOperand;
@@ -78,9 +79,14 @@ function operate(firstOperand, operator, secondOperand) {
 // }
 
 function resolveOperation() {
-  secondOperand = +displayCurrent.textContent;
+  if (operator === "/" || operator === "*") secondOperand = 1;
+  else {
+    secondOperand = displayCurrent.textContent
+      ? +displayCurrent.textContent
+      : 0;
+  }
   displayOperation.textContent += `${secondOperand} =`;
-  console.table(firstOperand, operator, secondOperand);
+  console.log(firstOperand, operator, secondOperand);
   displayCurrent.textContent = operate(firstOperand, operator, secondOperand);
 }
 
@@ -108,12 +114,42 @@ btnClear.addEventListener("click", function (e) {
 
 document.addEventListener("keydown", function (e) {
   e.preventDefault();
-  if (e.key === "Enter") btnEquals.click();
-  if (e.key === "Backspace") btnDelete.click();
-  if (e.key === ".") btnFloat.click();
+  if (e.key === "Enter") {
+    btnEquals.classList.add("active");
+    btnEquals.click();
+  }
+  if (e.key === "Backspace") {
+    btnDelete.classList.add("active");
+    btnDelete.click();
+  }
+  if (e.key === ".") {
+    btnFloat.classList.add("active");
+    btnFloat.click();
+  }
   btns.forEach((button) => {
     if (e.key === button.dataset.value) {
+      button.classList.add("active");
       button.click();
+    }
+  });
+});
+
+document.addEventListener("keyup", function (e) {
+  if (e.key === "Enter") {
+    btnEquals.classList.remove("active");
+    btnEquals.click();
+  }
+  if (e.key === "Backspace") {
+    btnDelete.classList.remove("active");
+    btnDelete.click();
+  }
+  if (e.key === ".") {
+    btnFloat.classList.remove("active");
+    btnFloat.click();
+  }
+  btns.forEach((button) => {
+    if (e.key === button.dataset.value) {
+      button.classList.remove("active");
     }
   });
 });
@@ -159,12 +195,10 @@ operators.forEach((operatorSymbol) => {
     // and the current value as the second operand
     if (displayOperation.textContent !== "") {
       console.log(
-        `Ongoing operation ${console.table(
-          firstOperand,
-          secondOperand,
-          operator
-        )}`
+        `Ongoing operation ${(firstOperand, operator, secondOperand)}`
       );
+      // if the last action/button was an operator
+      // Update to the new operator
       firstOperand = resolveOperation();
     } else {
       firstOperand = +displayCurrent.textContent;
@@ -182,6 +216,7 @@ operators.forEach((operatorSymbol) => {
 });
 
 btnEquals.addEventListener("click", function (e) {
+  if (!displayCurrent.textContent) return;
   if (
     displayOperation.textContent.charAt(
       displayOperation.textContent.length - 1

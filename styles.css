@@ -54,7 +54,8 @@ h6 {
 body {
   height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   font-family: Helvetica, Roboto, sans-serif;
   background-color: var(--main-bg-color);
@@ -64,6 +65,7 @@ body {
   width: 300px;
   display: flex;
   flex-direction: column;
+  margin-top: 3rem;
   padding: 1rem;
   border: none;
   border-radius: 25px;
@@ -99,11 +101,6 @@ body {
   color: var(--secondary-text-color);
 }
 
-/* .display-break {
-  border-style: inset;
-  border: 0.5px solid #393e46aa;
-} */
-
 .keypad {
   display: flex;
   flex-flow: row wrap;
@@ -132,6 +129,7 @@ button {
 
   font-size: 1.2rem;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
 button[data-type="operator"],
@@ -148,7 +146,44 @@ button[data-type="delete"] {
   fill: var(--accent-text-color);
 }
 
+button:hover {
+  background-color: var(--main-bg-color);
+}
+
+button:active {
+  color: var(--main-text-color);
+  background-color: var(--accent-text-color);
+}
+
+.active {
+  fill: var(--main-text-color);
+  background-color: var(--accent-text-color);
+}
+
+.illustration path {
+  stroke: var(--main-text-color);
+}
+
+#btn-equals {
+  fill: var(--main-text-color);
+  background-color: var(--accent-text-color);
+}
+
 #btn-delete {
   border: none;
   box-shadow: none;
+}
+
+footer {
+  text-align: center;
+  font-size: 1em;
+  letter-spacing: 1px;
+  color: var(--secondary-text-color);
+  padding: 1.5em;
+}
+
+footer a {
+  text-decoration: none;
+  color: var(--accent-text-color);
+  font-weight: 700;
 }
