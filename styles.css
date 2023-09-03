@@ -2,6 +2,15 @@
   Josh's Custom CSS Reset
   https://www.joshwcomeau.com/css/custom-css-reset/
 */
+
+:root {
+  --main-bg-color: #393e46;
+  --main-container-color: #222831;
+  --main-text-color: #f4f5f9;
+  --secondary-text-color: #f4f5f965;
+  --accent-text-color: #ff9b50;
+}
+
 *,
 *::before,
 *::after {
@@ -47,33 +56,59 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Roboto, sans-serif;
-  background-color: #f4f5f6;
+  font-family: Helvetica, Roboto, sans-serif;
+  background-color: var(--main-bg-color);
 }
 
 .container {
+  width: 300px;
   display: flex;
   flex-direction: column;
-  width: 20vw;
+  padding: 1rem;
+  border: none;
+  border-radius: 25px;
+  background-color: var(--main-container-color);
+  box-shadow: inset 0 0 0.5px 1px hsla(0, 0%, 100%, 0.075),
+    /* shadow ring 👇 */ 0 0 0 1px hsla(0, 0%, 0%, 0.05),
+    /* multiple soft shadows 👇 */ 0 0.3px 0.4px hsla(0, 0%, 0%, 0.02),
+    0 0.9px 1.5px hsla(0, 0%, 0%, 0.045), 0 3.5px 6px hsla(0, 0%, 0%, 0.09);
+}
+
+.display {
+  max-width: 400px;
+  padding: 1rem;
+  text-align: right;
+  margin-bottom: 1rem;
 }
 
 #display-operation,
 #display-current {
+  overflow: hidden;
   padding: 1rem;
-  text-align: right;
+  color: var(--main-text-color);
 }
 
 #display-operation {
   height: 50px;
-  font-size: 1.25rem;
+  font-size: 1.75rem;
+  font-weight: 600;
 }
 #display-current {
   height: 50px;
+  font-size: 1.45rem;
+  color: var(--secondary-text-color);
 }
+
+/* .display-break {
+  border-style: inset;
+  border: 0.5px solid #393e46aa;
+} */
 
 .keypad {
   display: flex;
   flex-flow: row wrap;
+  justify-content: space-around;
+  margin-bottom: 0.5rem;
 }
 
 .break {
@@ -82,7 +117,38 @@ body {
 }
 
 button {
+  display: inline-block;
   width: 50px;
-  aspect-ratio: 1 / 1;
-  margin: 0.35rem;
+  aspect-ratio: 1 / 0.8;
+  margin: 0.4rem 0.35rem;
+  color: var(--main-text-color);
+  background-color: var(--main-container-color);
+  border: none;
+  border-radius: 15px;
+  box-shadow: inset 0 0 0.5px 1px hsla(0, 0%, 100%, 0.397),
+    /* shadow ring 👇 */ 0 0 0 1px hsla(0, 0%, 85%, 0.05),
+    /* multiple soft shadows 👇 */ 0 0.3px 0.4px hsla(0, 0%, 79%, 0.02),
+    0 0.9px 1.5px hsla(0, 0%, 25%, 0.045), 0 3.5px 6px hsla(0, 0%, 23%, 0.09);
+
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+button[data-type="operator"],
+button[data-type="clear"],
+button[data-type="equals"],
+button[data-type="float"],
+button[data-type="percentage"],
+button[data-type="sign"],
+button[data-type="delete"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-text-color);
+  fill: var(--accent-text-color);
+}
+
+#btn-delete {
+  border: none;
+  box-shadow: none;
 }

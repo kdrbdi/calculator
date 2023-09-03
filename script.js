@@ -11,6 +11,7 @@ const operators = document.querySelectorAll('[data-type="operator"]');
 const btnClear = document.querySelector("#btn-clear");
 const btnDelete = document.querySelector("#btn-delete");
 const btnEquals = document.querySelector("#btn-equals");
+const btnSign = document.querySelector("#btn-sign");
 
 // Variables
 let firstOperand;
@@ -72,9 +73,9 @@ function operate(firstOperand, operator, secondOperand) {
 // Helper functions
 // ====================
 
-function parseOperation(str) {
-  return str.replace(/[^0-9*\/*+-.]/g, "");
-}
+// function parseOperation(str) {
+//   return str.replace(/[^0-9*\/*+-.]/g, "");
+// }
 
 function resolveOperation() {
   secondOperand = +displayCurrent.textContent;
@@ -140,6 +141,17 @@ digits.forEach((digit) => {
 });
 
 // Listen for operators
+btnSign.addEventListener("click", function (e) {
+  if (displayCurrent.textContent === "") return;
+  if (displayCurrent.textContent) {
+    if (displayCurrent.textContent.includes("-")) {
+      displayCurrent.textContent = displayCurrent.textContent.replace("-", "");
+    } else {
+      displayCurrent.textContent = +`-${displayCurrent.textContent}`;
+    }
+  }
+});
+
 operators.forEach((operatorSymbol) => {
   operatorSymbol.addEventListener("click", function (e) {
     // If there's an ongoing operation
