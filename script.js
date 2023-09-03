@@ -56,7 +56,9 @@ function operate(firstOperand, operator, secondOperand) {
       break;
     }
     case "/": {
-      if (!secondOperand) return "Err";
+      if (secondOperand === 0) {
+        return "Really 😒️?";
+      }
       result = divide(firstOperand, secondOperand);
       break;
     }
@@ -79,7 +81,8 @@ function operate(firstOperand, operator, secondOperand) {
 // }
 
 function resolveOperation() {
-  if (operator === "/" || operator === "*") secondOperand = 1;
+  if (!displayCurrent.textContent && (operator === "/" || operator === "*"))
+    secondOperand = 1;
   else {
     secondOperand = displayCurrent.textContent
       ? +displayCurrent.textContent
@@ -208,9 +211,9 @@ operators.forEach((operatorSymbol) => {
     // save the value displayed as first operand
     firstOperand = +displayCurrent.textContent;
     // set the operand
-    operator = e.target.dataset.value;
+    operator = e.currentTarget.dataset.value;
     // Update display
-    displayOperation.textContent = `${displayCurrent.textContent} ${e.target.dataset.value} `;
+    displayOperation.textContent = `${displayCurrent.textContent} ${e.currentTarget.dataset.value} `;
     displayCurrent.textContent = "";
   });
 });
