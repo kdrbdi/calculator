@@ -114,16 +114,20 @@ btnClear.addEventListener("click", function (e) {
 });
 
 // Listen for keyboard events
+let path = document.querySelector("#btn-delete>svg>path");
 
 document.addEventListener("keydown", function (e) {
   e.preventDefault();
   if (e.key === "Enter") {
+    path = document.querySelector("#btn-equals>svg>path");
     btnEquals.classList.add("active");
     btnEquals.click();
+    path.setAttribute("background-color", "#ff6d00");
   }
   if (e.key === "Backspace") {
     btnDelete.classList.add("active");
     btnDelete.click();
+    path.setAttributeNS(null, "stroke", "#f4f5f9");
   }
   if (e.key === ".") {
     btnFloat.classList.add("active");
@@ -141,10 +145,12 @@ document.addEventListener("keyup", function (e) {
   if (e.key === "Enter") {
     btnEquals.classList.remove("active");
     btnEquals.click();
+    path.setAttribute("background-color", "#ff9b50");
   }
   if (e.key === "Backspace") {
     btnDelete.classList.remove("active");
     btnDelete.click();
+    path.setAttributeNS(null, "stroke", "#ff9b50");
   }
   if (e.key === ".") {
     btnFloat.classList.remove("active");
@@ -155,6 +161,15 @@ document.addEventListener("keyup", function (e) {
       button.classList.remove("active");
     }
   });
+});
+
+// const pathDelete = document.querySelector("#btn-delete>svg>path");
+
+btnDelete.addEventListener("keydown", function (e) {
+  path.setAttributeNS(null, "stroke", "#f4f5f9");
+});
+btnDelete.addEventListener("keyup", function (e) {
+  path.setAttributeNS(null, "stroke", "#ff9b50");
 });
 
 btnDelete.addEventListener("click", function (e) {

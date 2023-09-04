@@ -159,6 +159,10 @@ button:active {
   background-color: var(--accent-text-color);
 }
 
+button:focus {
+  outline: none;
+}
+
 .active {
   fill: var(--main-text-color);
   background-color: var(--accent-text-color);
